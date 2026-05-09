@@ -1,0 +1,276 @@
+basePath: /
+definitions:
+  mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse:
+    properties:
+      message:
+        type: string
+      result: {}
+      status:
+        type: string
+    type: object
+  mnc-fullstack-technical-test_tahap-2_internal_domain_usecase.LoginRequest:
+    properties:
+      phone_number:
+        type: string
+      pin:
+        type: string
+    required:
+    - phone_number
+    - pin
+    type: object
+  mnc-fullstack-technical-test_tahap-2_internal_domain_usecase.PaymentRequest:
+    properties:
+      amount:
+        type: number
+      remarks:
+        type: string
+    required:
+    - amount
+    type: object
+  mnc-fullstack-technical-test_tahap-2_internal_domain_usecase.RegisterRequest:
+    properties:
+      address:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      phone_number:
+        type: string
+      pin:
+        type: string
+    required:
+    - address
+    - first_name
+    - last_name
+    - phone_number
+    - pin
+    type: object
+  mnc-fullstack-technical-test_tahap-2_internal_domain_usecase.TopUpRequest:
+    properties:
+      amount:
+        type: number
+    required:
+    - amount
+    type: object
+  mnc-fullstack-technical-test_tahap-2_internal_domain_usecase.TransferRequest:
+    properties:
+      amount:
+        type: number
+      remarks:
+        type: string
+      target_user:
+        type: string
+    required:
+    - amount
+    - target_user
+    type: object
+  mnc-fullstack-technical-test_tahap-2_internal_domain_usecase.UpdateProfileRequest:
+    properties:
+      address:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample e-wallet API for MNC technical test.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: MNC Fullstack Technical Test API
+  version: "1.0"
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Login user with phone number and pin
+      parameters:
+      - description: Login request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_domain_usecase.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse'
+      summary: Login user
+      tags:
+      - users
+  /pay:
+    post:
+      consumes:
+      - application/json
+      description: Deduct balance from current user for payment
+      parameters:
+      - description: Payment request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_domain_usecase.PaymentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse'
+      security:
+      - BearerAuth: []
+      summary: Make a payment
+      tags:
+      - transactions
+  /profile:
+    put:
+      consumes:
+      - application/json
+      description: Update current user's first name, last name, or address
+      parameters:
+      - description: Update profile request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_domain_usecase.UpdateProfileRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse'
+      security:
+      - BearerAuth: []
+      summary: Update user profile
+      tags:
+      - users
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user with first name, last name, phone number, address,
+        and pin
+      parameters:
+      - description: Register request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_domain_usecase.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse'
+      summary: Register a new user
+      tags:
+      - users
+  /topup:
+    post:
+      consumes:
+      - application/json
+      description: Add balance to current user
+      parameters:
+      - description: Top up request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_domain_usecase.TopUpRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse'
+      security:
+      - BearerAuth: []
+      summary: Top up balance
+      tags:
+      - transactions
+  /transactions:
+    get:
+      description: Get all transactions for current user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse'
+      security:
+      - BearerAuth: []
+      summary: Get transaction history
+      tags:
+      - transactions
+  /transfer:
+    post:
+      consumes:
+      - application/json
+      description: Transfer balance from current user to another user
+      parameters:
+      - description: Transfer request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_domain_usecase.TransferRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/mnc-fullstack-technical-test_tahap-2_internal_delivery_http_response.JSONResponse'
+      security:
+      - BearerAuth: []
+      summary: Transfer balance
+      tags:
+      - transactions
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
